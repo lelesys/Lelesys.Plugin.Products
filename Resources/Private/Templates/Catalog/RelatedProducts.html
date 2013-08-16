@@ -1,0 +1,53 @@
+{namespace media=TYPO3\Media\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace products=Lelesys\Plugin\Products\ViewHelpers}
+
+<f:if condition="{products}">
+	<f:form action="relate" enctype="multipart/form-data">
+		<h3>Add related products</h3>
+		<ol>
+			<f:for each="{products}" as="product">
+				<li>
+					<span>
+						<products:value node="{product}" property="title" />
+					</span>
+				<f:form.checkbox name="relatedProducts[]" value="{product.path}" />
+				</li>
+			</f:for>
+		</ol>
+		<f:form.submit value="save" />
+	</f:form>
+</f:if>
+<f:if condition="{relatedItems}">
+	<f:security.ifAccess resource="TYPO3_Neos_Backend_BackendController">
+		<f:then>
+			<h3>Related Products</h3>
+			<f:form action="delete">
+				<ol>
+					<f:for each="{relatedItems}" as="relatedItem">
+						<f:if condition="{relatedItem.1.removed}">
+							<f:else>
+								<li>
+								<neos:link.node node="{relatedItem.0}"><products:value node="{relatedItem.0}" property="title" /></neos:link.node>
+								<f:form.checkbox name="nodes[]" value="{relatedItem.1.path}" />
+								</li>
+							</f:else>
+						</f:if>
+					</f:for>
+				</ol>
+				<f:form.submit value="Delete Related Products"/>
+			</f:form>
+		</f:then>
+		<f:else>
+			<h3>Related Products</h3>
+			<ol>
+				<f:for each="{relatedItems}" as="relatedItem">
+					<li>
+					<neos:link.node node="{relatedItem.0}"><products:value node="{relatedItem.0}" property="title" /></neos:link.node>
+					</li>
+				</f:for>
+			</ol>
+		</f:else>
+	</f:security.ifAccess>
+</f:if>

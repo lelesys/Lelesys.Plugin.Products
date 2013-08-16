@@ -1,0 +1,18 @@
+<f:security.ifAccess resource="TYPO3_Neos_Backend_BackendController">
+	<f:if condition="{itemNodes}">
+		<f:then>
+			<f:switch expression="{itemNodes}">
+				<f:case value="Lelesys.Plugin.Products:Category">
+					<f:form controller="Catalog" action="create" ><f:form.hidden name="nodeType" value="Lelesys.Plugin.Products:Category" /><f:form.submit class="button" value="create category +"/></f:form>
+				</f:case>
+				<f:case value="Lelesys.Plugin.Products:Product">
+					<f:form controller="Catalog" action="create" ><f:form.hidden name="nodeType" value="Lelesys.Plugin.Products:Product" /><f:form.submit class="button" value="create product +"/></f:form>
+				</f:case>
+			</f:switch>
+		</f:then>
+		<f:else>
+			<f:form controller="Catalog" action="create" ><f:form.hidden name="nodeType" value="Lelesys.Plugin.Products:Category" /><f:form.submit class="button" value="create category +"/></f:form>
+			<f:form controller="Catalog" action="create" ><f:form.hidden name="nodeType" value="Lelesys.Plugin.Products:Product" /><f:form.submit class="button" value="create product +"/></f:form>
+		</f:else>
+	</f:if>
+</f:security.ifAccess>

@@ -1,0 +1,86 @@
+
+#
+# TypoScript object is a regular Plugin content type.
+#
+prototype(Lelesys.Plugin.Products:Admin) < prototype(TYPO3.Neos:Plugin)
+prototype(Lelesys.Plugin.Products:Admin) {
+	package = 'Lelesys.Plugin.Products'
+	controller = 'Catalog'
+	action = 'admin'
+	argumentNamespace = 'productCatalogAdmin'
+}
+
+prototype(Lelesys.Plugin.Products:List) < prototype(TYPO3.Neos:Plugin)
+prototype(Lelesys.Plugin.Products:List) {
+	package = 'Lelesys.Plugin.Products'
+	controller = 'Catalog'
+	action = 'index'
+	argumentNamespace = 'productCatalogList'
+}
+
+prototype(TYPO3.Neos:ContentCollection).category {
+	condition = ${q(node).is('[instanceof Lelesys.Plugin.Products:Category]')}
+	type = 'Lelesys.Plugin.Products:Category'
+
+}
+
+prototype(TYPO3.Neos:ContentCollection).product {
+	condition = ${q(node).is('[instanceof Lelesys.Plugin.Products:Product]')}
+	type = 'Lelesys.Plugin.Products:Product'
+
+}
+
+prototype(Lelesys.Plugin.Products:Catalog) < prototype(TYPO3.Neos:Template)
+prototype(Lelesys.Plugin.Products:Catalog)  {
+	templatePath = 'resource://Lelesys.Plugin.Products/Private/Templates/TypoScript/Catalog.html'
+	admin = Lelesys.Plugin.Products:Admin
+	admin.nodePath = 'admin'
+	list = Lelesys.Plugin.Products:List
+	list.nodePath = 'list'
+}
+
+prototype(Lelesys.Plugin.Products:Category) < prototype(TYPO3.Neos:Template)
+prototype(Lelesys.Plugin.Products:Category) {
+	templatePath = 'resource://Lelesys.Plugin.Products/Private/Templates/TypoScript/Category.html'
+	title = ${q(node).property('title')}
+    image = ${q(node).property('image')}
+	text = ${q(node).property('text')}
+    locale = ${node.context.properties.locale}
+	currentUri = ${request.httpRequest.uri}
+	subCategories = ${q(node).children("[instanceof Lelesys.Plugin.Products:Category]")}
+	products = ${q(node).children("[instanceof Lelesys.Plugin.Products:Product]")}
+	admin = Lelesys.Plugin.Products:Admin
+	admin.nodePath = 'admin'
+}
+
+prototype(Lelesys.Plugin.Products:Product) < prototype(TYPO3.Neos:Template)
+prototype(Lelesys.Plugin.Products:Product) {
+	templatePath = 'resource://Lelesys.Plugin.Products/Private/Templates/TypoScript/Product.html'
+	title = ${q(node).property('title')}
+	text = ${q(node).property('text')}
+	price = ${q(node).property('price')}
+	image = ${q(node).property('image')}
+	priceVisibility = ${q(node).property('priceVisibility')}
+	images = TYPO3.Neos:ContentCollection.Default
+	images.nodePath = 'images'
+	filesPlugin = Lelesys.Plugin.Products:FilePlugin
+	filesPlugin.nodePath = 'filesPlugin'
+	relatedProducts = Lelesys.Plugin.Products:RelatedProducts
+	relatedProducts.nodePath = 'relatedProducts'
+}
+
+prototype(Lelesys.Plugin.Products:FilePlugin) < prototype(TYPO3.Neos:Plugin)
+prototype(Lelesys.Plugin.Products:FilePlugin) {
+	package = 'Lelesys.Plugin.Products'
+	controller = 'Catalog'
+	action = 'fileUpload'
+	argumentNamespace = 'productCatalogProductFiles'
+}
+
+prototype(Lelesys.Plugin.Products:RelatedProducts) < prototype(TYPO3.Neos:Plugin)
+prototype(Lelesys.Plugin.Products:RelatedProducts) {
+	package = 'Lelesys.Plugin.Products'
+	controller = 'Catalog'
+	action = 'relatedProducts'
+	argumentNamespace = 'productCatalogRelatedProduct'
+}

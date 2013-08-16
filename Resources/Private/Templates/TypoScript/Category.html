@@ -1,0 +1,69 @@
+{namespace media=TYPO3\Media\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace products=Lelesys\Plugin\Products\ViewHelpers}
+<neos:contentElement node="{node}">
+    <h3 itemprop="name headline"><neos:contentElement.editable property="title">{title}</neos:contentElement.editable></h3>
+	<div class="row-fluid">
+		<div class="span3">
+			<div class="typo3-image{f:if(condition: alignment, then: ' typo3-image-alignment-{alignment}')}">
+				<f:render partial="Image" arguments="{
+						  image: image,
+						  alternativeText: alternativeText,
+						  title: title,
+						  link: link,
+						  hasCaption: hasCaption,
+						  caption: caption,
+						  captionAlignment: captionAlignment,
+						  maximumWidth: maximumWidth,
+						  maximumHeight: maximumHeight
+						  }" />
+			</div>
+		</div>
+		<div class="span7">
+			<neos:contentElement.editable property="text">{text -> f:format.raw()}</neos:contentElement.editable>
+		</div>
+	</div>
+</neos:contentElement>
+<hr>
+
+<f:if condition="{subCategories}">
+	<f:then>
+		<f:render section="catalogItem" arguments="{items: subCategories}" />
+	</f:then>
+	<f:else>
+		<f:if condition="{products}">
+			<f:then>
+				<f:render section="catalogItem" arguments="{items: products}" />
+			</f:then>
+		</f:if>
+	</f:else>
+</f:if>
+<f:security.ifAccess resource="TYPO3_Neos_Backend_BackendController">
+	<ts:render path="admin" />
+</f:security.ifAccess>
+
+<f:section name="catalogItem">
+<div class="row-fluid">
+	<div class="span12">
+		<f:for each="{items}" as="item">
+			<div class="span4 thumbnail">
+				<div style="position: relative;">
+					<f:if condition="{products:value(node: '{item}', property: 'image')}">
+						<f:then>
+							<neos:link.node node="{item}"> <media:image image="{products:value(node: '{item}', property: 'image')}" alt="{alternativeText}" title="{title}" maximumWidth="{maximumWidth}" maximumHeight="{maximumHeight}" /> </neos:link.node>
+						</f:then>
+						<f:else>
+							<neos:link.node node="{item}"> <img src="{f:uri.resource(package: 'TYPO3.Neos', path: 'Images/dummy-image.png')}" title="Dummy image" alt="Dummy image" /></neos:link.node>
+						</f:else>
+					</f:if>
+					<div class="carousel-caption">
+						<h4><neos:link.node node="{item}"><h4><products:value node="{item}" property="title" /></h4></neos:link.node></h4>
+						<p><f:format.crop maxCharacters="20">{products:value(node: '{item}', property: 'text')}</f:format.crop></p>
+					</div>
+				</div>
+			</div>
+		</f:for>
+	</div>
+</div>
+</f:section>

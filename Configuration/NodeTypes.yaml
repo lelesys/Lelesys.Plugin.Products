@@ -1,0 +1,110 @@
+'Lelesys.Plugin.Products:Catalog':
+  superTypes:
+    - 'TYPO3.Neos:Content'
+  ui:
+    icon: 'icon-folder-close'
+    label: 'Catalog'
+    group: Plugins
+  childNodes:
+    list:
+      type: 'Lelesys.Plugin.Products:List'
+    admin:
+      type: 'Lelesys.Plugin.Products:Admin'
+
+'Lelesys.Plugin.Products:List':
+  superTypes:
+    - 'TYPO3.Neos:Plugin'
+  ui:
+    label: 'Products List'
+
+'Lelesys.Plugin.Products:Admin':
+  superTypes:
+    - 'TYPO3.Neos:Plugin'
+  ui:
+    label: 'Catalog Admin'
+
+'Lelesys.Plugin.Products:Category':
+  superTypes:
+    - 'TYPO3.Neos:Document'
+    - 'TYPO3.Neos.NodeTypes:TextWithImage'
+  ui:
+    icon: 'icon-folder-open'
+    label: 'Category'
+    group: Structure
+    inspector:
+      groups:
+        page:
+          label: 'Category'
+  childNodes:
+    admin:
+      type: 'Lelesys.Plugin.Products:Admin'
+
+'Lelesys.Plugin.Products:Product':
+  superTypes:
+    - 'TYPO3.Neos:Document'
+    - 'TYPO3.Neos.NodeTypes:TextWithImage'
+  ui:
+    icon: 'icon-ok-circle'
+    label: 'Product'
+    group: Structure
+    inspector:
+      groups:
+        page:
+          label: 'Product'
+  childNodes:
+    images:
+      type: 'TYPO3.Neos:ContentCollection'
+    files:
+      type: 'TYPO3.Neos:ContentCollection'
+    filesPlugin:
+      type: 'Lelesys.Plugin.Products:FilePlugin'
+    relatedProducts:
+      type: 'Lelesys.Plugin.Products:RelatedProducts'
+  properties:
+    price:
+      type: string
+      ui:
+        label: 'Price'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'page'
+    priceVisibility:
+      type: boolean
+      defaultValue: TRUE
+      ui:
+        label: 'Price display'
+        reloadIfChanged: TRUE
+        inspector:
+          group: 'page'
+
+'Lelesys.Plugin.Products:FilePlugin':
+  superTypes:
+    - 'TYPO3.Neos:Plugin'
+  ui:
+    label: 'Product Files'
+
+'Lelesys.Plugin.Products:File':
+  superTypes:
+    - 'TYPO3.Neos:Content'
+  ui:
+    label: 'Product File'
+    group: Structure
+  properties:
+    file:
+      type: TYPO3\Flow\Resource\Resource
+
+'Lelesys.Plugin.Products:RelatedProducts':
+  superTypes:
+    - 'TYPO3.Neos:Plugin'
+  ui:
+    label: 'Related Products Admin'
+
+'Lelesys.Plugin.Products:RelatedProduct':
+  superTypes:
+    - 'TYPO3.Neos:Content'
+  ui:
+    label: 'Related Product'
+    group: Structure
+  properties:
+    path:
+      type: string
