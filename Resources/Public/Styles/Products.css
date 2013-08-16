@@ -2,3 +2,11 @@
 	float: left;
 	margin-right: 5px;
 }
+
+.catalog-pagination nav ul li {
+	display: inline;
+}
+
+.catalog-pagination nav ul {
+	list-style: none;
+}

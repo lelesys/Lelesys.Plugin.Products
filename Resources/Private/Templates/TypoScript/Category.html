@@ -44,26 +44,29 @@
 </f:security.ifAccess>
 
 <f:section name="catalogItem">
-<div class="row-fluid">
-	<div class="span12">
-		<f:for each="{items}" as="item">
-			<div class="span4 thumbnail">
-				<div style="position: relative;">
-					<f:if condition="{products:value(node: '{item}', property: 'image')}">
-						<f:then>
-							<neos:link.node node="{item}"> <media:image image="{products:value(node: '{item}', property: 'image')}" alt="{alternativeText}" title="{title}" maximumWidth="{maximumWidth}" maximumHeight="{maximumHeight}" /> </neos:link.node>
-						</f:then>
-						<f:else>
-							<neos:link.node node="{item}"> <img src="{f:uri.resource(package: 'TYPO3.Neos', path: 'Images/dummy-image.png')}" title="Dummy image" alt="Dummy image" /></neos:link.node>
-						</f:else>
-					</f:if>
-					<div class="carousel-caption">
+	<div class="row-fluid">
+		<div class="span12">
+			<f:for each="{items}" as="item">
+				<div class="span6 thumbnail">
+					<div class="span6">
+						<f:if condition="{products:value(node: '{item}', property: 'image')}">
+							<f:then>
+								<neos:link.node node="{item}"> <media:image image="{products:value(node: '{item}', property: 'image')}" alt="{alternativeText}" title="{title}" maximumWidth="{maximumWidth}" maximumHeight="{maximumHeight}" /> </neos:link.node>
+							</f:then>
+							<f:else>
+								<neos:link.node node="{item}"> <img src="{f:uri.resource(package: 'TYPO3.Neos', path: 'Images/dummy-image.png')}" title="Dummy image" alt="Dummy image" /></neos:link.node>
+							</f:else>
+						</f:if>
+					</div>
+					<div class="span6">
 						<h4><neos:link.node node="{item}"><h4><products:value node="{item}" property="title" /></h4></neos:link.node></h4>
-						<p><f:format.crop maxCharacters="20">{products:value(node: '{item}', property: 'text')}</f:format.crop></p>
+						<p><f:format.crop maxCharacters="50">{products:value(node: '{item}', property: 'text')}</f:format.crop></p>
+						<span class="pull-right">
+							<neos:link.node node="{item}">Read More..</neos:link.node>
+						</span>
 					</div>
 				</div>
-			</div>
-		</f:for>
+			</f:for>
+		</div>
 	</div>
-</div>
 </f:section>

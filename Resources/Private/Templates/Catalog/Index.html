@@ -5,7 +5,7 @@
 
 <f:if condition="{itemNodes}">
 	<f:then>
-		<typo3cr:widget.paginate widgetId="paginator" parentNode="{pageNode}" nodeTypeFilter="{itemNodes}" as="paginatedItems" configuration="{itemsPerPage: 2, insertBelow: 1, maximumNumberOfLinks: 15}">
+		<typo3cr:widget.paginate widgetId="paginator" parentNode="{pageNode}" nodeTypeFilter="{itemNodes}" as="paginatedItems" configuration="{itemsPerPage: 4, insertBelow: 1, maximumNumberOfLinks: 15}">
 			<f:for each="{paginatedItems}" as="item">
 				<div class="row-fluid">
 					<div class="span12">
@@ -23,7 +23,7 @@
 							<h4>
 								<neos:link.node node="{item}"><products:value node="{item}" property="title" /></neos:link.node>
 							</h4>
-							<div class="content"><f:format.crop maxCharacters="50">{products:value(node: '{item}', property: 'text')}</f:format.crop></div>
+							<div class="content"><f:format.crop maxCharacters="200">{products:value(node: '{item}', property: 'text')}</f:format.crop></div>
 							<span class="pull-right">
 								<neos:link.node node="{item}">Read More..</neos:link.node>
 							</span>
@@ -32,7 +32,9 @@
 				</div>
 				<hr>
 			</f:for>
-			{pagination.numberOfPages}
-		</typo3cr:widget.paginate>
+			<div class="catalog-pagination">
+				{pagination.numberOfPages}
+				</typo3cr:widget.paginate>
+			</div>
 	</f:then>
 </f:if>
