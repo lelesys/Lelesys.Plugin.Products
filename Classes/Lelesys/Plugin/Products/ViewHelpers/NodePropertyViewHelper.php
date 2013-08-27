@@ -11,16 +11,15 @@ namespace Lelesys\Plugin\Products\ViewHelpers;
  *                                                                        *
  *                                                                        */
 
-use TYPO3\Flow\Annotations as Flow;
 use TYPO3\TYPO3CR\Domain\Model\NodeInterface;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- *
+ * Returns the value for property for specific language
  *
  * @api
  */
-class ValueViewHelper extends AbstractViewHelper {
+class NodePropertyViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Returns the node property value for current locale
@@ -28,21 +27,24 @@ class ValueViewHelper extends AbstractViewHelper {
 	 * @param TYPO3\TYPO3CR\Domain\Model\NodeInterface $node The node
 	 * @param strind $property The node property
 	 * @param string $locale The locale
+	 * @return mixed Value of the given property
 	 */
-	public function render($node = NULL, $property = NULL, $locale = NULL) {
-		if ($locale === NULL) {
-			$contextProperties = $node->getContext()->getProperties();
-			if (!empty($contextProperties['locale'])) {
-				$locale = $contextProperties['locale'];
+	public function render(NodeInterface $node, $property, $locale = NULL) {
+		if (is_object($node) === TRUE) {
+			if ($locale === NULL) {
+				$contextProperties = $node->getContext()->getProperties();
+				if (!empty($contextProperties['locale'])) {
+					$locale = $contextProperties['locale']->getLanguage();
+				}
 			}
-		}
-		$value = $node->getProperty($property);
-		if (is_array($value) && $locale !== NULL) {
-			if (!empty($value[$locale])) {
-				return $value[$locale];
+			$value = $node->getProperty($property);
+			if (is_array($value) && $locale !== NULL) {
+				if (!empty($value[$locale])) {
+					return $value[$locale];
+				}
 			}
+			return $value;
 		}
-		return $value;
 	}
 
 }

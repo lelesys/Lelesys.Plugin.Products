@@ -10,7 +10,7 @@
 			<f:for each="{products}" as="product">
 				<li>
 					<span>
-						<products:value node="{product}" property="title" />
+						<products:nodeProperty node="{product}" property="title" />
 					</span>
 				<f:form.checkbox name="relatedProducts[]" value="{product.path}" />
 				</li>
@@ -29,7 +29,7 @@
 						<f:if condition="{relatedItem.1.removed}">
 							<f:else>
 								<li>
-								<neos:link.node node="{relatedItem.0}"><products:value node="{relatedItem.0}" property="title" /></neos:link.node>
+								<neos:link.node node="{relatedItem.0}"><products:nodeProperty node="{relatedItem.0}" property="title" /></neos:link.node>
 								<f:form.checkbox name="nodes[]" value="{relatedItem.1.path}" />
 								</li>
 							</f:else>
@@ -44,7 +44,7 @@
 			<ol>
 				<f:for each="{relatedItems}" as="relatedItem">
 					<li>
-					<neos:link.node node="{relatedItem.0}"><products:value node="{relatedItem.0}" property="title" /></neos:link.node>
+					<neos:link.node node="{relatedItem.0}"><products:nodeProperty node="{relatedItem.0}" property="title" /></neos:link.node>
 					</li>
 				</f:for>
 			</ol>

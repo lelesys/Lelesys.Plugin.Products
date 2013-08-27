@@ -10,9 +10,9 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="span4">
-							<f:if condition="{products:value(node: '{item}', property: 'image')}">
+							<f:if condition="{products:nodeProperty(node: '{item}', property: 'image')}">
 								<f:then>
-									<media:image class="thumbnail" image="{products:value(node: '{item}', property: 'image')}" alt="{alternativeText}" title="{title}" maximumWidth="{maximumWidth}" maximumHeight="{maximumHeight}" />
+									<media:image class="thumbnail" image="{products:nodeProperty(node: '{item}', property: 'image')}" alt="{alternativeText}" title="{title}" maximumWidth="{maximumWidth}" maximumHeight="{maximumHeight}" />
 								</f:then>
 								<f:else>
 									<img class="thumbnail" src="{f:uri.resource(package: 'TYPO3.Neos', path: 'Images/dummy-image.png')}" title="Dummy image" alt="Dummy image" />
@@ -21,9 +21,9 @@
 						</div>
 						<div class="span8">
 							<h4>
-								<neos:link.node node="{item}"><products:value node="{item}" property="title" /></neos:link.node>
+								<neos:link.node node="{item}"><products:nodeProperty node="{item}" property="title" /></neos:link.node>
 							</h4>
-							<div class="content"><f:format.crop maxCharacters="200">{products:value(node: '{item}', property: 'text')}</f:format.crop></div>
+							<div class="content"><products:teaser maxCharacters="200">{products:nodeProperty(node: '{item}', property: 'text')}</products:teaser></div>
 							<span class="pull-right">
 								<neos:link.node node="{item}">Read More..</neos:link.node>
 							</span>
