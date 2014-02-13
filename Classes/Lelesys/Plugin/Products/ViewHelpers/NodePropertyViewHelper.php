@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Products\ViewHelpers;
 
 /* *

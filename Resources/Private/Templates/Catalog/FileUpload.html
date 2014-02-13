@@ -1,4 +1,4 @@
-<f:security.ifAccess resource="TYPO3_Neos_Backend_BackendController">
+<f:security.ifAccess resource="TYPO3_Neos_Backend_GeneralAccess">
 	<f:then>
 		<h3>Add Documents</h3>
 		<f:form action="uploadFiles" enctype="multipart/form-data">
@@ -12,8 +12,8 @@
 						<f:if condition="{fileNode.removed}">
 							<f:else>
 								<li>
-								<f:link.action action="downloadFiles" arguments="{file: fileNode.properties.file}">{fileNode.properties.file.filename}</f:link.action>
-								<f:form.checkbox name="nodes[]" value="{fileNode.path}" />
+									<f:link.action action="downloadFiles" arguments="{file: fileNode.properties.file}">{fileNode.properties.file.filename}</f:link.action>
+									<f:form.checkbox name="nodes[]" value="{fileNode.path}" />
 								</li>
 							</f:else>
 						</f:if>

@@ -2,8 +2,8 @@
 {namespace ts=TYPO3\TypoScript\ViewHelpers}
 {namespace neos=TYPO3\Neos\ViewHelpers}
 {namespace products=Lelesys\Plugin\Products\ViewHelpers}
-<neos:contentElement node="{node}">
-    <h3 itemprop="name headline"><neos:contentElement.editable property="title">{title}</neos:contentElement.editable></h3>
+<neos:contentElement.wrap node="{node}">
+	<h3 itemprop="name headline">{neos:contentElement.editable(node: node, property: 'title')}</h3>
 	<div class="row-fluid">
 		<div class="span3">
 			<div class="typo3-image{f:if(condition: alignment, then: ' typo3-image-alignment-{alignment}')}">
@@ -21,10 +21,10 @@
 			</div>
 		</div>
 		<div class="span7">
-			<neos:contentElement.editable property="text">{text -> f:format.raw()}</neos:contentElement.editable>
+			{neos:contentElement.editable(node: node, property: 'text')}
 		</div>
 	</div>
-</neos:contentElement>
+</neos:contentElement.wrap>
 <hr>
 
 <f:if condition="{subCategories}">
@@ -39,8 +39,8 @@
 		</f:if>
 	</f:else>
 </f:if>
-<f:security.ifAccess resource="TYPO3_Neos_Backend_BackendController">
-	<ts:render path="admin" />
+<f:security.ifAccess resource="TYPO3_Neos_Backend_GeneralAccess">
+	{admin -> f:format.raw()}
 </f:security.ifAccess>
 
 <f:section name="catalogItem">

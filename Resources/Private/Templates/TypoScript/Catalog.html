@@ -3,7 +3,7 @@
 {namespace typo3cr=TYPO3\TYPO3CR\ViewHelpers}
 {namespace products=Lelesys\Plugin\Products\ViewHelpers}
 
-<ts:render path="list" />
-<f:security.ifAccess resource="TYPO3_Neos_Backend_BackendController">
-	<ts:render path="admin" />
+{list -> f:format.raw()}
+<f:security.ifAccess resource="TYPO3_Neos_Backend_GeneralAccess">
+	{admin -> f:format.raw()}
 </f:security.ifAccess>

@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Products\Controller;
 
 /*                                                                         *
@@ -24,18 +23,24 @@ use TYPO3\Flow\Security\Exception\AccessDeniedException;
 class CatalogController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 
 	/**
+	 * Inject NodeTypeManager
+	 *
 	 * @Flow\Inject
 	 * @var \TYPO3\TYPO3CR\Domain\Service\NodeTypeManager
 	 */
 	protected $nodeTypeManager;
 
 	/**
+	 * Inject ResourceManager
+	 *
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Resource\ResourceManager
 	 */
 	protected $resourceManager;
 
 	/**
+	 * Inject CatalogService
+	 *
 	 * @Flow\Inject
 	 * @var \Lelesys\Plugin\Products\Service\CatalogService
 	 */
@@ -85,8 +90,8 @@ class CatalogController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	 * Creates a new category or product.
 	 *
 	 * @param \TYPO3\TYPO3CR\Domain\Model\NodeInterface $pageNode
-	 * @param string $nodeType
-	 * @param string $uri
+	 * @param string $nodeType The NodeType
+	 * @param string $uri The URI
 	 * @return void
 	 */
 	public function createAction(NodeInterface $pageNode = NULL, $nodeType = NULL, $uri = NULL) {
@@ -130,7 +135,7 @@ class CatalogController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * Creates a file node for product.
 	 *
-	 * @param array $fileUpload
+	 * @param array $fileUpload Array of files to be uploaded
 	 * @return void
 	 */
 	public function uploadFilesAction(array $fileUpload) {
@@ -147,7 +152,7 @@ class CatalogController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * Downloads the product file.
 	 *
-	 * @param array $file
+	 * @param array $file Array of files
 	 * @return void
 	 */
 	public function downloadFilesAction(array $file) {
@@ -180,7 +185,7 @@ class CatalogController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 			}
 			$this->view->assign('relatedItems', $relatedItems);
 		}
-		if ($this->catalogService->hasAccessToResource('TYPO3_Neos_Backend_BackendController')) {
+		if ($this->catalogService->hasAccessToResource('TYPO3_Neos_Backend_GeneralAccess')) {
 			$products = NULL;
 			$ignoreNodes[] = $documentNode->getPath();
 			$productNodes = $this->catalogService->findByNodeTypeAndCurrentSite('Lelesys.Plugin.Products:Product', $documentNode->getContext()->getCurrentSiteNode()->getPath(), $ignoreNodes);
@@ -209,7 +214,7 @@ class CatalogController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 	/**
 	 * Return the redirect uri
 	 *
-	 * @param TYPO3\TYPO3CR\Domain\Model\NodeInterface $documentNode
+	 * @param TYPO3\TYPO3CR\Domain\Model\NodeInterface $documentNode The document node
 	 * @return string
 	 */
 	protected function getRedirectUri($documentNode) {
@@ -236,7 +241,5 @@ class CatalogController extends \TYPO3\Flow\Mvc\Controller\ActionController {
 		}
 		$this->redirectToUri($this->getRedirectUri($documentNode));
 	}
-
 }
-
 ?>

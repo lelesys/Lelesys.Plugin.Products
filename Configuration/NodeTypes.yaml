@@ -4,7 +4,7 @@
   ui:
     icon: 'icon-folder-close'
     label: 'Catalog'
-    group: Plugins
+    group: plugins
   childNodes:
     list:
       type: 'Lelesys.Plugin.Products:List'
@@ -30,12 +30,14 @@
   ui:
     icon: 'icon-folder-open'
     label: 'Category'
-    group: Structure
+    group: structure
     inspector:
       groups:
         page:
           label: 'Category'
   childNodes:
+    main:
+      type: 'TYPO3.Neos:ContentCollection'
     admin:
       type: 'Lelesys.Plugin.Products:Admin'
 
@@ -46,12 +48,14 @@
   ui:
     icon: 'icon-ok-circle'
     label: 'Product'
-    group: Structure
+    group: structure
     inspector:
       groups:
         page:
           label: 'Product'
   childNodes:
+    main:
+      type: 'TYPO3.Neos:ContentCollection'
     images:
       type: 'TYPO3.Neos:ContentCollection'
     files:
@@ -67,7 +71,7 @@
         label: 'Price'
         reloadIfChanged: TRUE
         inspector:
-          group: 'page'
+          group: page
     priceVisibility:
       type: boolean
       defaultValue: TRUE
@@ -75,7 +79,7 @@
         label: 'Price display'
         reloadIfChanged: TRUE
         inspector:
-          group: 'page'
+          group: page
 
 'Lelesys.Plugin.Products:FilePlugin':
   superTypes:
@@ -88,7 +92,6 @@
     - 'TYPO3.Neos:Content'
   ui:
     label: 'Product File'
-    group: Structure
   properties:
     file:
       type: TYPO3\Flow\Resource\Resource
@@ -104,7 +107,7 @@
     - 'TYPO3.Neos:Content'
   ui:
     label: 'Related Product'
-    group: Structure
+    group: structure
   properties:
     path:
       type: string

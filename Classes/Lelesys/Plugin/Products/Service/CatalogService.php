@@ -1,5 +1,4 @@
 <?php
-
 namespace Lelesys\Plugin\Products\Service;
 
 /*                                                                         *
@@ -21,24 +20,32 @@ use TYPO3\Flow\Security\Exception\AccessDeniedException;
 class CatalogService {
 
 	/**
+	 * Inject NodeDataRepository
+	 *
 	 * @Flow\Inject
 	 * @var \TYPO3\TYPO3CR\Domain\Repository\NodeDataRepository
 	 */
 	protected $nodeDataRepository;
 
 	/**
+	 * Inject AccessDecisionManagerInterface
+	 *
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Security\Authorization\AccessDecisionManagerInterface
 	 */
 	protected $accessDecisionManager;
 
 	/**
+	 * Inject ResourceManager
+	 *
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Resource\ResourceManager
 	 */
 	protected $resourceManager;
 
 	/**
+	 * Inject PropertyMapper
+	 *
 	 * @Flow\Inject
 	 * @var \TYPO3\Flow\Property\PropertyMapper
 	 */

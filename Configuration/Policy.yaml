@@ -1,0 +1,12 @@
+#                                                                        #
+# Security policy for the Lelesys.Plugin.Products package                #
+#                                                                        #
+
+resources:
+  methods:
+    Lelesys_Plugin_Products_CatalogAccess: 'method(Lelesys\Plugin\Products\Controller\CatalogController->(index|downloadFiles|relatedProducts|relate|admin|create|fileUpload|uploadFiles|delete)Action())'
+
+acls:
+  Everybody:
+    methods:
+      Lelesys_Plugin_Products_CatalogAccess: GRANT
